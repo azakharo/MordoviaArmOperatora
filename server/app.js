@@ -37,5 +37,15 @@ server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
+
+// Redis
+var redis = require("redis");
+var client1 = redis.createClient();
+client1.on("message", function (channel, message) {
+  console.log("recv redis message - channel: " + channel + " msg: " + message);
+});
+client1.subscribe("test");
+
+
 // Expose app
 exports = module.exports = app;
