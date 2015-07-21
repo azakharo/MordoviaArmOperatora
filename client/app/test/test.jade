@@ -1,2 +1,6 @@
-.col-md-12
-    | This is the test view.
+.container.col-md-4.col-md-offset-4
+  .panel.panel-primary
+    .panel-body
+      .card-num Карта №{{ card.number }}
+      .card-owner Владелец: {{ card.owner }}
+      .card-expired Действует до: {{ card.expired }}

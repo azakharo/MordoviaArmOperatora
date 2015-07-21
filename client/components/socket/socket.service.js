@@ -69,6 +69,22 @@ angular.module('angularTubeApp')
       unsyncUpdates: function (modelName) {
         socket.removeAllListeners(modelName + ':save');
         socket.removeAllListeners(modelName + ':remove');
+      },
+
+      subscr2CardEvents: function (onCardInserted, onCardEjected) {
+        socket.on('cardInserted', function (card) {
+          onCardInserted(card);
+        });
+
+        socket.on('cardEjected', function (card) {
+          onCardEjected(card);
+        });
+      },
+
+      unsubscr2CardEvents: function () {
+        socket.removeAllListeners('cardInserted');
+        socket.removeAllListeners('cardEjected');
       }
+
     };
   });

@@ -19,6 +19,7 @@ function onConnect(socket) {
 
   // Insert sockets below
   require('../api/thing/thing.socket').register(socket);
+  require('../components/cardReaderSubscriber/subscriber').register(socket);
 }
 
 module.exports = function (socketio) {
