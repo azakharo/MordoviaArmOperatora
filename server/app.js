@@ -38,13 +38,30 @@ server.listen(config.port, config.ip, function () {
 });
 
 
-// Redis
+/////////////////////////////////////////////////////////////////////
+// Redis - send messages to the client
+
 var redis = require("redis");
 var client1 = redis.createClient();
+var curCard = null;
 client1.on("message", function (channel, message) {
-  console.log("recv redis message - channel: " + channel + " msg: " + message);
+  //console.log("recv redis message - channel: " + channel + " msg: " + message);
+  var recvMsg = JSON.parse(message);
+  if (recvMsg.subject == "inserted" || recvMsg.subject == "ejected") {
+    var card = recvMsg.data;
+    console.log("card " + card.number + " " + recvMsg.subject);
+    if (recvMsg.subject == "inserted") {
+      curCard = card;
+    }
+    else {
+      curCard = null;
+    }
+  }
 });
 client1.subscribe("test");
+
+// Redis - send messages to the client
+/////////////////////////////////////////////////////////////////////
 
 
 // Expose app
